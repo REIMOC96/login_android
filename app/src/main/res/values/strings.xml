@@ -12,4 +12,5 @@
     <string name="errorConect">error de coneccion</string>
     <string name="logout">cerrar sesion</string>
     <string name="serUser">Buscar Usuario</string>
+
 </resources>
