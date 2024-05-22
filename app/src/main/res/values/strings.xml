@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">login</string>
+    <string name="contrasena">ingrese contraseña</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="ingNombre">ingrese nombre</string>
+    <string name="ingEmail">Ingrese Email</string>
+    <string name="errorLog">error al logearse</string>
+    <string name="iniSesion">iniciar sesion</string>
+    <string name="registrobien">registro correcto</string>
+    <string name="errorRegistrarUsuario">Error al Registrar el Usuario</string>
+    <string name="errorConect">error de coneccion</string>
+    <string name="logout">cerrar sesion</string>
+    <string name="serUser">Buscar Usuario</string>
+</resources>
