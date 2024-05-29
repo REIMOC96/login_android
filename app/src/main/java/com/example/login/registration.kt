@@ -75,9 +75,9 @@ class MyActivity : AppCompatActivity() {
             Method.POST,
             url,
             Response.Listener { response ->
-                if (response == "success") {
+                if (response.trim() == "Registro exitoso") {
                     Toast.makeText(this, getString(R.string.registrobien), Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, login::class.java)
+                    val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
@@ -85,8 +85,8 @@ class MyActivity : AppCompatActivity() {
                     errorTextView.visibility = View.VISIBLE
                 }
             },
-            Response.ErrorListener { _ ->
-                errorTextView.text = getString(R.string.errorConect)
+            Response.ErrorListener { error ->
+                errorTextView.text = getString(R.string.errorConect) + error.message
                 errorTextView.visibility = View.VISIBLE
             }) {
             override fun getParams(): Map<String, String> {
@@ -100,4 +100,6 @@ class MyActivity : AppCompatActivity() {
 
         requestQueue.add(stringRequest)
     }
+
 }
+

@@ -12,5 +12,6 @@
     <string name="errorConect">error de coneccion</string>
     <string name="logout">cerrar sesion</string>
     <string name="serUser">Buscar Usuario</string>
+    <string name="Redirect_reg">Clickea aqui para registrarte</string>
 
 </resources>
