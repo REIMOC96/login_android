@@ -2,7 +2,7 @@
 if (!empty($_POST['email']) && !empty($_POST['password'])) {
     $conect = mysqli_connect('localhost', 'root', '', 'login_android');
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password'];
     $response = array();
 
     if ($conect) {
@@ -13,7 +13,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_assoc($result);
 
-            if ($email == $row['email'] && password_verify($_POST['password'], $row['password'])) {
+            if (password_verify($password, $row['password'])) {
                 try {
                     $apiKey = bin2hex(random_bytes(12));
                 } catch (Exception $e) {
@@ -23,7 +23,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
                 $sqlUpdate = "UPDATE usuarios SET apiKey = '$apiKey' WHERE email = '$email'";
 
                 if (mysqli_query($conect, $sqlUpdate)) {
-                    $response = array("status" => "success", "message" => "Login", "name" => $row['name'], "email" => $row['email'], "apiKey" => $apiKey);
+                    $response = array("status" => "success", "message" => "Login", "name" => $row['nombre'], "email" => $row['email'], "apiKey" => $apiKey);
                 }
             } else {
                 $response = array("status" => "error", "message" => "Credenciales incorrectas");
@@ -39,4 +39,4 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 }
 
 echo json_encode($response);
-
+?>

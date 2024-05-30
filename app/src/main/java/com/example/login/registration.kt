@@ -1,5 +1,6 @@
 package com.example.login
 
+import LoginActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -7,7 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.RequestQueue
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -61,7 +62,7 @@ class MyActivity : AppCompatActivity() {
     }
 
     private fun makeApiCall() {
-        val url = "http://192.168.0.9/loginphp/registro.php"
+        val url = "http://192.168.0.8/loginphp/registro.php"
 
         val name = textEditTextName.text.toString().trim()
         val email = textEditTextEmail.text.toString().trim()
@@ -69,10 +70,10 @@ class MyActivity : AppCompatActivity() {
 
         errorTextView.visibility = View.GONE
 
-        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
+        val requestQueue = Volley.newRequestQueue(this)
 
         val stringRequest = object : StringRequest(
-            Method.POST,
+            Request.Method.POST,
             url,
             Response.Listener { response ->
                 if (response.trim() == "Registro exitoso") {
@@ -89,17 +90,15 @@ class MyActivity : AppCompatActivity() {
                 errorTextView.text = getString(R.string.errorConect) + error.message
                 errorTextView.visibility = View.VISIBLE
             }) {
-            override fun getParams(): Map<String, String> {
-                return hashMapOf(
-                    "name" to name,
-                    "email" to email,
-                    "password" to password
-                )
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["name"] = name
+                params["email"] = email
+                params["password"] = password
+                return params
             }
         }
 
         requestQueue.add(stringRequest)
     }
-
 }
-

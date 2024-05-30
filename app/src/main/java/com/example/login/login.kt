@@ -1,42 +1,60 @@
-package com.example.login
-
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.login.databinding.ActivityLoginBinding
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        enableEdgeToEdge()
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val textViewRegisterNow: TextView = findViewById(R.id.registerNow)
-        textViewRegisterNow.setOnClickListener {
-            // Iniciar la actividad RegistrationActivity
-            val intent = Intent(this, MyActivity::class.java)//<<aqui da error el llamado a registration
+        binding.buttonLogin.setOnClickListener {
+            val email = binding.editTextEmail.text.toString()
+            val password = binding.editTextPassword.text.toString()
+
+            loginUser(email, password)
+        }
+
+        binding.textViewRegisterNow.setOnClickListener {
+            // Redirigir a la actividad de registro
+            val intent = Intent(this, registration::class.java)
             startActivity(intent)
         }
+    }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+    private fun loginUser(email: String, password: String) {
+        val url = "http://192.168.0.8/loginphp/login.php"
+        val params = JSONObject().apply {
+            put("email", email)
+            put("password", password)
         }
-    }
 
-    private fun enableEdgeToEdge() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
-    }
+        val request = JsonObjectRequest(Request.Method.POST, url, params,
+            Response.Listener { response ->
+                val status = response.getString("status")
+                if (status == "success") {
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val message = response.getString("message")
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                }
+            },
+            Response.ErrorListener { error ->
+                Toast.makeText(this, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+            })
 
-    private fun onClick() {
-        val intent = Intent(applicationContext, MyActivity::class.java)
-        startActivity(intent)
+        Volley.newRequestQueue(this).add(request)
     }
 }
