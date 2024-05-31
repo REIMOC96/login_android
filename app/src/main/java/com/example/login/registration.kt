@@ -1,6 +1,6 @@
 package com.example.login
 
-import LoginActivity
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -62,7 +62,7 @@ class MyActivity : AppCompatActivity() {
     }
 
     private fun makeApiCall() {
-        val url = "http://192.168.0.8/loginphp/registro.php"
+        val url = "http://192.168.145.70/loginphp/registro.php"
 
         val name = textEditTextName.text.toString().trim()
         val email = textEditTextEmail.text.toString().trim()
@@ -72,8 +72,9 @@ class MyActivity : AppCompatActivity() {
 
         val requestQueue = Volley.newRequestQueue(this)
 
-        val stringRequest = object : StringRequest(
-            Request.Method.POST,
+        val stringRequest = @SuppressLint("SetTextI18n")
+        object : StringRequest(
+            Method.POST,
             url,
             Response.Listener { response ->
                 if (response.trim() == "Registro exitoso") {

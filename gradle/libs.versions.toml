@@ -10,6 +10,8 @@ material = "1.10.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
 volley = "1.2.1"
+databindingCommon = "8.4.1"
+databindingCompiler = "8.4.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -21,6 +23,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
+androidx-databinding-common = { group = "androidx.databinding", name = "databinding-common", version.ref = "databindingCommon" }
+androidx-databinding-compiler = { group = "androidx.databinding", name = "databinding-compiler", version.ref = "databindingCompiler" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -6,7 +6,7 @@ $postData = array(
 );
 
 // URL del script que quieres probar
-$url = 'http://192.168.0.9/loginphp/login.php'; // Reemplaza con la URL correcta
+$url = 'http://192.168.145.70/loginphp/login.php'; // Reemplaza con la URL correcta
 
 // Inicializar una nueva solicitud cURL
 $ch = curl_init();

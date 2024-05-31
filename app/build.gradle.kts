@@ -4,9 +4,14 @@ plugins {
 }
 
 android {
+
+
     namespace = "com.example.login"
     compileSdk = 34
-
+    packagingOptions {
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/NOTICE.md")
+    }
     defaultConfig {
         applicationId = "com.example.login"
         minSdk = 24
@@ -19,7 +24,7 @@ android {
     }
 
     buildFeatures{
-        dataBinding = true;
+        dataBinding = true ;
         namespace = "com.example.login"
     }
     buildTypes {
@@ -47,6 +52,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.volley)
+    implementation(libs.androidx.databinding.common)
+    implementation(libs.androidx.databinding.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
